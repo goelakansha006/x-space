@@ -23,7 +23,7 @@ export function app() {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  server.use('/dist/x-space', expressStaticGzip('dist/x-space' , {
+  server.use('dist/x-space', expressStaticGzip('dist/x-space' , {
     enableBrotli: true,
     orderPreference: ['br', 'gz'],
  }));
