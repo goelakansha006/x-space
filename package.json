@@ -9,11 +9,15 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start:heroku": "node dist/x-space/server/main.js",
+    "compress:brotli": "gzipper compress --verbose --brotli --include woff2,woff,ttf,png,txt,png,js,html,css,svg --level 9 .dist/x-space",
+    "compress:gzip": "gzipper compress --verbose --include woff2,woff,ttf,png,txt,png,js,html,css,svg --level 9 .dist/x-space",
     "dev:ssr": "ng run x-space:serve-ssr",
     "serve:ssr": "node dist/x-space/server/main.js",
     "build:ssr": "ng build --prod && ng run x-space:server:production",
     "postinstall": "npm run build:ssr",
+    "postbuild": "npm run compress:brotli && npm run compress:gzip",
     "prerender": "ng run x-space:prerender"
+    
   },
   "private": true,
   "dependencies": {
@@ -31,6 +35,8 @@
     "@nguniversal/express-engine": "^9.0.2",
     "compression": "^1.7.4",
     "express": "^4.15.2",
+    "express-static-gzip": "^2.1.0",
+    "gzipper": "^4.3.0",
     "ramda": "^0.27.1",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.6.3",

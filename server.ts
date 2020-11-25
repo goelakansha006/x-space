@@ -3,9 +3,9 @@ import 'zone.js/dist/zone-node';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
-import {compression} from 'compression';
 
 import { AppServerModule } from './src/main.server';
+import * as expressStaticGzip from 'express-static-gzip';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
@@ -23,7 +23,11 @@ export function app() {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  server.use(compression());
+  server.use('/dist/x-space', expressStaticGzip('dist/x-space' , {
+    enableBrotli: true,
+    orderPreference: ['br', 'gz'],
+ }));
+
 
   // Example Express Rest API endpoints
   // app.get('/api/**', (req, res) => { });
