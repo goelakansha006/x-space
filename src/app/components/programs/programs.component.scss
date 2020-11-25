@@ -1,0 +1,43 @@
+/* desktop view */
+.grid-container {
+    display: grid;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    /* 4 columns for desktop view */
+    grid-template-columns: auto auto auto auto;
+    padding: 0 10px;
+  }
+  
+  .grid-item {
+    background-color: white;
+    text-align: center;
+    border-radius: 9px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .label {
+    font-weight: bold;
+  }
+  .text-color {
+    color: blue;
+  }
+  
+  /* Styling for MOBILE view  */
+  @media only screen and (max-width: 700px) {
+    .grid-container {
+      grid-template-columns: auto; /* 1 columns for mobile view */
+    }
+  }
+  
+  /* Styling for TABLET view */
+  @media screen and (max-width: 1024px) and (min-width: 700px) {
+    .grid-container {
+      grid-template-columns: auto auto; /* 2 columns for desktop view */
+    }
+  }
+
+  .background-grey-color {
+    background: #f2f2f2;
+  }
+  

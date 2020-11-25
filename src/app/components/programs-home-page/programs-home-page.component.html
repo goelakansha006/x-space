@@ -1,0 +1,82 @@
+<div class="main">
+    <mat-card class="filters-container">
+      <h3 class="filter-title">Filters</h3>
+      <!-- Year filter -->
+      <div class="filter-title">
+        <span>Launch Year</span>
+        <hr />
+        <div class="grid-container">
+          <div
+            *ngFor="let in of counter(15); let i = index"
+            [ngClass]="{ 'selected-filter': i + startYear == filters.year }"
+            (click)="applyFilters(i + startYear, filters.launch, filters.landed)"
+            class="grid-item cursor-pointer"
+          >
+            {{ i + startYear }}
+          </div>
+        </div>
+      </div>
+      <!-- Launch filter -->
+      <div class="filter-title">
+        <span>Successful Launch</span>
+        <hr />
+        <div class="grid-container">
+          <div
+            class="grid-item cursor-pointer"
+            [ngClass]="{ 'selected-filter': 'true' == filters.launch }"
+            (click)="applyFilters(filters.year, 'true', filters.landed)"
+          >
+            True
+          </div>
+          <div
+            class="grid-item cursor-pointer"
+            [ngClass]="{ 'selected-filter': 'false' == filters.launch }"
+            (click)="applyFilters(filters.year, 'false', filters.landed)"
+          >
+            False
+          </div>
+        </div>
+      </div>
+      <!-- Landing filters -->
+      <div class="filter-title">
+        <span>Successful Landing</span>
+        <hr />
+        <div class="grid-container">
+          <div
+            class="grid-item cursor-pointer"
+            [ngClass]="{ 'selected-filter': 'true' == filters.landed }"
+            (click)="applyFilters(filters.year, filters.launch, 'true')"
+          >
+            True
+          </div>
+          <div
+            class="grid-item cursor-pointer"
+            [ngClass]="{ 'selected-filter': 'false' == filters.landed }"
+            (click)="applyFilters(filters.year, filters.launch, 'false')"
+          >
+            False
+          </div>
+        </div>
+      </div>
+      <!-- Clear all filters  -->
+      <div class="filter-title">
+        <span>Clear Filters</span>
+        <hr />
+        <div (click)="clearFilters()" class="grid-item clear-filter cursor-pointer">CLEAR</div>
+      </div>
+    </mat-card>
+    <div class="details-container">
+      <!-- Launch details -->
+      <app-programs  *ngIf="launchDetails?.length > 0; else elseBlock"
+        [programDetails]="launchDetails"></app-programs>
+      <ng-template #elseBlock>
+        <mat-card *ngIf="allMissionDetails" class="margin-left">
+          <h1>No data is available for following selection</h1>
+          <p>YEAR:{{ filters.year ? filters.year : "Not specified" }}</p>
+          <p>Launch:{{ filters.launch ? filters.launch : "Not specified" }}</p>
+          <p>Landing: {{ filters.landed ? filters.landed : "Not specified" }}</p>
+        </mat-card>
+      </ng-template>
+    </div>
+  </div>
+  
