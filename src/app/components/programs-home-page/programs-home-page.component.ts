@@ -9,7 +9,7 @@ import { LaunchProgramService } from 'src/app/services/launch-program.service';
   styleUrls: ['./programs-home-page.component.scss'],
   templateUrl: './programs-home-page.component.html',
 })
-export class ProgramsHomePageComponent implements OnInit, OnDestroy {
+export class ProgramsHomePageComponent implements OnInit {
   public startYear = 2006; // staring year in the added filters
   public launchDetails: ILaunchProgram[] = [];
   public allMissionDetails: ILaunchProgram[];
@@ -20,7 +20,6 @@ export class ProgramsHomePageComponent implements OnInit, OnDestroy {
     year: null,
   };
 
-  public subscriptions = new Subscription();
 
   constructor(private spacexLaunchService: LaunchProgramService , private router: Router , private route: ActivatedRoute) {}
 
@@ -37,15 +36,13 @@ export class ProgramsHomePageComponent implements OnInit, OnDestroy {
         launch: params.launch,
         year: params.year,
       };
-      this.subscriptions.add(
-        this.spacexLaunchService
-          .getLaunchDetails(this.filters)
-          .subscribe((mission: ILaunchProgram[]) => {
-            if (!!mission) {
-              this.launchDetails = mission;
-            }
-          }),
-      );
+      this.spacexLaunchService
+        .getLaunchDetails(this.filters)
+        .subscribe((mission: ILaunchProgram[]) => {
+          if (!!mission) {
+            this.launchDetails = mission;
+          }
+        })
     });
   }
 
@@ -85,10 +82,6 @@ export class ProgramsHomePageComponent implements OnInit, OnDestroy {
     });
 
     this.launchDetails = this.allMissionDetails;
-  }
-
-  public ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
 }
