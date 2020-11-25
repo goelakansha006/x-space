@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "compile":"ngc -p tsconfig.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -14,7 +15,7 @@
     "dev:ssr": "ng run x-space:serve-ssr",
     "serve:ssr": "node dist/x-space/server/main.js",
     "build:ssr": "ng build --prod && ng run x-space:server:production",
-    "postinstall": "npm run build:ssr",
+    "postinstall": "ngcc && npm run build:ssr",
     "postbuild": "npm run compress:brotli && npm run compress:gzip",
     "prerender": "ng run x-space:prerender"
     
